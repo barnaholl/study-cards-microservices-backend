@@ -30,4 +30,13 @@ public class DeckController {
     public Deck getDeckById(@PathVariable("id") Long id){
         return deckRepository.getById(id);
     }
+
+    @PostMapping("/deck")//Name,Desc,UserId
+    public void createDeckByUserId(@RequestBody Deck deck){
+        deckRepository.save(deck);
+    }
+
+
+
+
 }
