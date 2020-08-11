@@ -2,9 +2,7 @@ package com.codecool.deckhandlerservice.controller;
 
 import com.codecool.deckhandlerservice.entity.Deck;
 import com.codecool.deckhandlerservice.repository.DeckRepository;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -21,5 +19,10 @@ public class DeckController {
     @GetMapping("/deck/all")
     public List<Deck> getAllDecks(){
         return deckRepository.findAll();
+    }
+
+    @GetMapping("/deck/all/{userId}")
+    public List<Deck> getAllDecksByUserId(@PathVariable("userId") Long userId){
+        return deckRepository.findAllByUserId(userId);
     }
 }
