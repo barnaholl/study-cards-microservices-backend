@@ -1,5 +1,6 @@
 package com.codecool.userservice.service;
 
+import com.codecool.userservice.entity.Role;
 import com.codecool.userservice.entity.Student;
 import com.codecool.userservice.repository.StudentRepository;
 import lombok.extern.slf4j.Slf4j;
@@ -25,13 +26,16 @@ public class DataInitializer implements CommandLineRunner {
     public void run(String... args) {
 
         Student student1 = Student.builder()
-                .username("zuzu")
-                .password(passwordEncoder.encode("zuzu"))
+                .username("admin")
+                .password(passwordEncoder.encode("admin"))
+                .role(Role.ADMIN)
+                .role(Role.USER)
                 .build();
 
         Student student2 = Student.builder()
-                .username("rara")
-                .password(passwordEncoder.encode("rara"))
+                .username("zuzu")
+                .password(passwordEncoder.encode("zuzu"))
+                .role(Role.USER)
                 .build();
 
         allStudents.save(student1);
