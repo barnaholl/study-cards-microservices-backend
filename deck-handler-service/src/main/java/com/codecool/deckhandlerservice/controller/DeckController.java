@@ -51,6 +51,17 @@ public class DeckController {
         deckRepository.save(deck);
     }
 
+    @DeleteMapping("/card/{deckId}/{cardId}")
+    public void deleteCard(@PathVariable("deckId") Long deckId, @PathVariable("cardId") Long cardId){
+        Deck deck=deckRepository.getById(deckId);
+        List<Card> cards=deck.getCards();
+        Card cardToRemove=cardRepository.getById(cardId);
+        cards.remove(cardToRemove);
+        deck.setCards(cards);
+        deckRepository.save(deck);
+        cardRepository.deleteById(cardId);
+    }
+
 
 
 
