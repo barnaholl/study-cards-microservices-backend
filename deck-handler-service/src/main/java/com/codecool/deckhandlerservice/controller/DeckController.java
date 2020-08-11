@@ -16,12 +16,12 @@ public class DeckController {
         this.deckRepository = deckRepository;
     }
 
-    @GetMapping("/deck/all")
+    @GetMapping("/decks")
     public List<Deck> getAllDecks(){
         return deckRepository.findAll();
     }
 
-    @GetMapping("/deck/all/{userId}")
+    @GetMapping("/decks/{userId}")
     public List<Deck> getAllDecksByUserId(@PathVariable("userId") Long userId){
         return deckRepository.findAllByUserId(userId);
     }

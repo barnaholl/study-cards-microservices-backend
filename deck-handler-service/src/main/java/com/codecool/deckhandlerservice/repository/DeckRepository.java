@@ -7,4 +7,6 @@ import java.util.List;
 
 public interface DeckRepository extends JpaRepository<Deck,Long> {
     List<Deck> findAllByUserId(Long id);
+
+    Deck getById(Long id);
 }
