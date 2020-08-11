@@ -1,21 +1,20 @@
 package com.codecool.deckhandlerservice.entity;
 
-import lombok.AllArgsConstructor;
 import lombok.*;
-
 import javax.persistence.*;
+import java.util.List;
 
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
 @Entity
-public class Card {
-
-    @GeneratedValue
+public class Deck {
     @Id
+    @GeneratedValue
     private Long id;
-    private String question;
-    private String answer;
-    //private Deck deck;
+    private String name;
+    private String description;
+    //private List<Card> cards;
+    private Long userId;
 }
