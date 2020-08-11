@@ -1,6 +1,5 @@
 package com.codecool.deckhandlerservice.entity;
 
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.AllArgsConstructor;
 import lombok.*;
 
@@ -18,5 +17,4 @@ public class Card {
     private Long id;
     private String question;
     private String answer;
-    private Long deckId;
 }

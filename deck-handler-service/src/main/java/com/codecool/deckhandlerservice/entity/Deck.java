@@ -2,6 +2,7 @@ package com.codecool.deckhandlerservice.entity;
 
 import lombok.*;
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 
 @Data
@@ -15,5 +16,8 @@ public class Deck {
     private Long id;
     private String name;
     private String description;
+    @Singular
+    @ElementCollection
+    private List<Card> cards=new ArrayList<>();
     private Long userId;
 }

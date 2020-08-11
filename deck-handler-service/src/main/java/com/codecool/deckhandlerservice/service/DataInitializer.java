@@ -19,12 +19,13 @@ public class DataInitializer implements CommandLineRunner {
     }
 
     public void createCards(){
-        Deck deck=Deck.builder().name("default").description("default deck").build();
-        deckRepository.save(deck);
-        Card card = Card.builder().question("cica").answer("cat").deckId(Long.valueOf(1)).build();
-        Card card2 = Card.builder().question("kutya").answer("dog").deckId(Long.valueOf(1)).build();
+
+        Card card = Card.builder().question("cica").answer("cat").build();
+        Card card2 = Card.builder().question("kutya").answer("dog").build();
         cardRepository.save(card);
         cardRepository.save(card2);
+        Deck deck=Deck.builder().name("default").description("default deck").card(card).card(card2).build();
+        deckRepository.save(deck);
     }
 
     @Override
