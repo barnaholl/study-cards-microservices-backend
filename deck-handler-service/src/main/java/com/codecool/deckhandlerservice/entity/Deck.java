@@ -15,6 +15,5 @@ public class Deck {
     private Long id;
     private String name;
     private String description;
-    //private List<Card> cards;
     private Long userId;
 }
