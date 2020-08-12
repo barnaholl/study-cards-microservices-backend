@@ -7,11 +7,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import javax.servlet.http.HttpServletResponse;
 import java.util.Optional;
 
 @RestController
-@CrossOrigin(origins="${main.url}")
 public class StudentController {
 
     private final StudentService studentService;
@@ -25,7 +23,7 @@ public class StudentController {
         return studentService.getStudentById(studentId);
     }
 
-    @GetMapping("/user/{username}")
+    @GetMapping("/{username}")
     public Optional<Student> getStudentByUsername(@PathVariable("username") String username) {
         return studentService.getStudentByUsername(username);
     }

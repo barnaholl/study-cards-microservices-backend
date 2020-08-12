@@ -5,7 +5,7 @@ import lombok.*;
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotEmpty;
-import java.util.Set;
+import java.util.List;
 
 @Data
 @NoArgsConstructor
@@ -28,6 +28,6 @@ public class Student {
     @ElementCollection
     @Singular
     @NotEmpty
-    private Set<Role> roles;
+    private List<String> roles;
 
 }

@@ -1,6 +1,5 @@
 package com.codecool.userservice.service;
 
-import com.codecool.userservice.entity.Role;
 import com.codecool.userservice.entity.Student;
 import com.codecool.userservice.repository.StudentRepository;
 import org.springframework.stereotype.Service;
@@ -21,16 +20,15 @@ public class StudentService {
     }
 
     public Optional<Student> getStudentByUsername(String username) {
-        return studentRepository.findByUsername(username);
+        return studentRepository.findUserByUsername(username);
     }
 
-    public Student register(String username, String password) {
+    public void register(String username, String password) {
         Student newStudent = Student.builder()
                 .username(username)
                 .password(password)
-                .role(Role.USER)
+                .role("ROLE_USER")
                 .build();
         studentRepository.save(newStudent);
-        return newStudent;
     }
 }
