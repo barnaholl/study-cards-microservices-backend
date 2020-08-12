@@ -7,6 +7,7 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 @Configuration
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
@@ -15,6 +16,12 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     public AuthenticationManager authenticationManagerBean() throws Exception {
         return super.authenticationManagerBean();
+    }
+
+    private final JwtTokenServices jwtTokenServices;
+
+    public SecurityConfig(JwtTokenServices jwtTokenServices) {
+        this.jwtTokenServices = jwtTokenServices;
     }
 
     @Override
@@ -30,6 +37,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/**").permitAll()
 //                .antMatchers(HttpMethod.GET, "/**").authenticated()
 //                .antMatchers(HttpMethod.POST, "/**").authenticated()
-                .anyRequest().denyAll();
+                .anyRequest().denyAll().and()
+                .addFilterBefore(new JwtTokenFilter(jwtTokenServices), UsernamePasswordAuthenticationFilter.class);
     }
 }
