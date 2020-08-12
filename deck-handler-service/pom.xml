@@ -9,9 +9,9 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.codecool</groupId>
-	<artifactId>deck-handler-service</artifactId>
+	<artifactId>deck-handler-com.codecool.gameservice.service</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>deck-handler-service</name>
+	<name>deck-handler-com.codecool.gameservice.service</name>
 	<description>Demo project for Spring Boot</description>
 
 	<properties>

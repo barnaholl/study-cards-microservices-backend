@@ -29,6 +29,11 @@ public class DeckController {
     public List<Deck> getAllDecksByUserId(@PathVariable("userId") Long userId){
         return deckRepository.findAllByUserId(userId);
     }
+    @GetMapping("/cards/{deckId}")
+    public List<Card> getCardsByDeckId(@PathVariable("deckId") Long deckId){
+        Deck deck = deckRepository.getById(deckId);
+        return deck.getCards();
+    }
 
     @GetMapping("/deck/{id}")
     public Deck getDeckById(@PathVariable("id") Long id){
