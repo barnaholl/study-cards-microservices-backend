@@ -11,7 +11,7 @@
 	<groupId>com.codecool</groupId>
 	<artifactId>game-service</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>game-service</name>
+	<name>game-com.codecool.gameservice.service</name>
 	<description>Demo project for Spring Boot</description>
 
 	<properties>
