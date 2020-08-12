@@ -43,6 +43,7 @@ public class DeckController {
 
     @PostMapping("/card/{deckId}")
     public void addCardToDeck(@RequestBody Card card,@PathVariable("deckId") Long deckId){
+        //body needs to contain:Question,Answer
         cardRepository.save(card);
         Deck deck=deckRepository.getById(deckId);
         List<Card> cards=deck.getCards();
