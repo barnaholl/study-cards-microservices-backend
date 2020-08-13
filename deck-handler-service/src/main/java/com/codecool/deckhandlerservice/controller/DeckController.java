@@ -2,10 +2,12 @@ package com.codecool.deckhandlerservice.controller;
 
 import com.codecool.deckhandlerservice.entity.Card;
 import com.codecool.deckhandlerservice.entity.Deck;
+import com.codecool.deckhandlerservice.entity.ExportCard;
 import com.codecool.deckhandlerservice.repository.CardRepository;
 import com.codecool.deckhandlerservice.repository.DeckRepository;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @CrossOrigin()
@@ -30,9 +32,15 @@ public class DeckController {
         return deckRepository.findAllByUserId(userId);
     }
     @GetMapping("/cards/{deckId}")
-    public List<Card> getCardsByDeckId(@PathVariable("deckId") Long deckId){
+    public List<ExportCard> getCardsByDeckId(@PathVariable("deckId") Long deckId){
         Deck deck = deckRepository.getById(deckId);
-        return deck.getCards();
+        List<Card> cardList=deck.getCards();
+        List<ExportCard> exportCardList=new ArrayList<>();
+        for(Card card: cardList){
+           ExportCard exportCard= ExportCard.builder().id(String.valueOf(card.getId())).question(card.getQuestion()).answer(card.getAnswer()).build();
+           exportCardList.add(exportCard);
+        }
+        return exportCardList;
     }
 
     @GetMapping("/deck/{id}")
