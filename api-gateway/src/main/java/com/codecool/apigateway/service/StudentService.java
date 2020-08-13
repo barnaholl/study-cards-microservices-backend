@@ -19,8 +19,8 @@ public class StudentService {
         this.restTemplate = restTemplate;
     }
 
-    public Student findByUsername(String username) throws UsernameNotFoundException {
-        return restTemplate.getForEntity(baseUrl + "/user/" + username, Student.class).getBody();
+    public Student findByUsername(String username) {
+        return restTemplate.getForEntity(baseUrl + "/" + username, Student.class).getBody();
     }
 
     public void registerNewStudent(UserCredentials student) {
