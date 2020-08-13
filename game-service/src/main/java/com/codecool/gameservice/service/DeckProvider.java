@@ -1,7 +1,6 @@
 package com.codecool.gameservice.service;
 
 import com.codecool.gameservice.model.Card;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
