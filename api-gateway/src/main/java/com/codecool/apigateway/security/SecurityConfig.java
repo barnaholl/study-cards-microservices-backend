@@ -32,12 +32,13 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()
                 .authorizeRequests()
-                .antMatchers("/auth/login").permitAll()
-                .antMatchers("/auth/register").permitAll()
+//                .antMatchers(HttpMethod.POST, "/auth/login").permitAll()
+//                .antMatchers("/auth/register").permitAll()
                 .antMatchers("/**").permitAll()
 //                .antMatchers(HttpMethod.GET, "/**").authenticated()
 //                .antMatchers(HttpMethod.POST, "/**").authenticated()
-                .anyRequest().denyAll().and()
+//                .anyRequest().denyAll()
+                .and()
                 .addFilterBefore(new JwtTokenFilter(jwtTokenServices), UsernamePasswordAuthenticationFilter.class);
     }
 }
