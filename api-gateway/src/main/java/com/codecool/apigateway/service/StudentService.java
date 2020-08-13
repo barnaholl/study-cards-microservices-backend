@@ -12,7 +12,7 @@ public class StudentService {
 
     private final RestTemplate restTemplate;
 
-    @Value("${user-service.url}")
+    @Value("${user.service.url}")
     private String baseUrl;
 
     public StudentService(RestTemplate restTemplate) {
@@ -20,10 +20,10 @@ public class StudentService {
     }
 
     public Student findByUsername(String username) {
-        return restTemplate.getForEntity(baseUrl + "/" + username, Student.class).getBody();
+        return restTemplate.getForEntity(baseUrl + username, Student.class).getBody();
     }
 
     public void registerNewStudent(UserCredentials student) {
-        restTemplate.postForEntity(baseUrl + "/register", student, String.class);
+        restTemplate.postForEntity(baseUrl + "register", student, String.class);
     }
 }
