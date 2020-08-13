@@ -3,10 +3,11 @@ package com.codecool.apigateway.controller;
 import com.codecool.apigateway.model.UserCredentials;
 import com.codecool.apigateway.security.DataValidator;
 import com.codecool.apigateway.security.JwtTokenServices;
+import com.codecool.apigateway.security.UserDetailsServiceImpl;
 import com.codecool.apigateway.service.StudentService;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
@@ -23,6 +24,7 @@ import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/auth")
+@Slf4j
 public class AuthController {
 
     private final AuthenticationManager authenticationManager;
@@ -35,21 +37,28 @@ public class AuthController {
 
     private final StudentService studentService;
 
-    public AuthController(AuthenticationManager authenticationManager, JwtTokenServices jwtTokenServices, DataValidator dataValidator, StudentService studentService) {
+    private final UserDetailsServiceImpl userDetailsService;
+
+    public AuthController(AuthenticationManager authenticationManager, JwtTokenServices jwtTokenServices, DataValidator dataValidator, StudentService studentService, UserDetailsServiceImpl userDetailsService) {
         this.authenticationManager = authenticationManager;
         this.jwtTokenServices = jwtTokenServices;
         this.dataValidator = dataValidator;
         this.studentService = studentService;
+        this.userDetailsService = userDetailsService;
         passwordEncoder = PasswordEncoderFactories.createDelegatingPasswordEncoder();
 
     }
 
     @PostMapping("/login")
-    public ResponseEntity login(@RequestBody UserCredentials data) {
+    public ResponseEntity login(@RequestBody UserCredentials userCredentials) {
+        log.info(userCredentials.getPassword());
+        log.info(userCredentials.getUsername());
+        Map<Object, Object> model = new HashMap<>();
         try {
-            String username = data.getUsername();
+            String username = userCredentials.getUsername();
+            String password = userCredentials.getPassword();
             // authenticationManager.authenticate calls loadUserByUsername in CustomUserDetailsService
-            Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(username, data.getPassword()));
+            Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(username, password));
             List<String> roles = authentication.getAuthorities()
                     .stream()
                     .map(GrantedAuthority::getAuthority)
@@ -57,13 +66,15 @@ public class AuthController {
 
             String token = jwtTokenServices.createToken(username, roles);
 
-            Map<Object, Object> model = new HashMap<>();
+            model.put("correct", true);
             model.put("username", username);
             model.put("roles", roles);
             model.put("token", token);
             return ResponseEntity.ok(model);
         } catch (AuthenticationException e) {
-            throw new BadCredentialsException("Invalid username/password supplied");
+            model.put("correct", false);
+            model.put("msg", "Wrong username/password!");
+            return ResponseEntity.ok(model);
         }
     }
 
@@ -99,7 +110,7 @@ public class AuthController {
 
         UserCredentials newUserCredentials = UserCredentials.builder()
                 .username(username)
-                .password(password)
+                .password(passwordEncoder.encode(password))
                 .build();
         studentService.registerNewStudent(newUserCredentials);
 
