@@ -22,7 +22,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 
     private final RestTemplate template;
 
-    @Value("${userservice.url}")
+    @Value("${user.service.url}")
     private String baseUrl;
 
     @Override
@@ -32,8 +32,9 @@ public class UserDetailsServiceImpl implements UserDetailsService {
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);
         headers.setAccept(Collections.singletonList(MediaType.APPLICATION_JSON));
+        headers.add("username", username);
         HttpEntity<String> entity = new HttpEntity<>(username, headers);
-        Student student = template.exchange(baseUrl+"/"+username, HttpMethod.GET, entity, Student.class, username).getBody();
+        Student student = template.exchange(baseUrl+username, HttpMethod.GET, entity, Student.class).getBody();
 
         return new User(
                 student.getUsername(),
