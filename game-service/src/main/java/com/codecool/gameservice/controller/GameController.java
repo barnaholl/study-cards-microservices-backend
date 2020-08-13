@@ -4,8 +4,6 @@ import com.codecool.gameservice.model.Card;
 import com.codecool.gameservice.service.DeckProvider;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
-import java.util.Queue;
 
 @RestController
 @CrossOrigin
@@ -23,7 +21,16 @@ public class GameController {
     }
 
     @GetMapping("/play")
-    public Card gerCurrentDeck(){
+    public Card getCurrentDeck(){
         return deckProvider.getCurrentDeck();
     }
+
+    @PostMapping("/response/{response}")
+    public boolean postResponse(@PathVariable("response") boolean response,@RequestBody Card card){
+        if(!response){
+            return true;
+        }
+        return deckProvider.addToQueue(card);
+    }
+
 }

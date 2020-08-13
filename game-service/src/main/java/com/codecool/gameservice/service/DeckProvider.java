@@ -41,4 +41,11 @@ public class DeckProvider {
 
     }
 
+    public boolean addToQueue(Card card) {
+        if(card==null){
+            return false;
+        }
+        currentDeck.add(card);
+        return true;
+    }
 }
