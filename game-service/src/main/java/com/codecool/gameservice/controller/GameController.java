@@ -22,15 +22,15 @@ public class GameController {
 
     @GetMapping("/play")
     public Card getCurrentDeck(){
-        return deckProvider.getCurrentDeck();
+        return deckProvider.getNextCard();
     }
 
     @PostMapping("/response/{response}")
-    public boolean postResponse(@PathVariable("response") boolean response,@RequestBody Card card){
+    public boolean postResponse(@PathVariable("response") boolean response){
         if(!response){
-            return true;
+            return deckProvider.removeFromQueue();
         }
-        return deckProvider.addToQueue(card);
+        return deckProvider.addToQueue();
     }
 
 }

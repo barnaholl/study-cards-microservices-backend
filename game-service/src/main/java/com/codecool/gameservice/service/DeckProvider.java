@@ -19,8 +19,8 @@ public class DeckProvider {
 
     private Queue<Card> currentDeck=new LinkedList<>();
 
-    public Card getCurrentDeck() {
-        return currentDeck.poll();
+    public Card getNextCard() {
+        return currentDeck.peek();
     }
 
     @Value("${deck-handler-url}")
@@ -40,11 +40,19 @@ public class DeckProvider {
 
     }
 
-    public boolean addToQueue(Card card) {
-        if(card==null){
+    public boolean addToQueue() {
+        if(currentDeck.size()==0&&currentDeck==null){
             return false;
         }
-        currentDeck.add(card);
+        currentDeck.add(currentDeck.poll());
+        return true;
+    }
+
+    public boolean removeFromQueue() {
+        if(currentDeck.size()==0&&currentDeck==null){
+            return false;
+        }
+        currentDeck.remove();
         return true;
     }
 }
