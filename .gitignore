@@ -1,1 +1,11 @@
+### Idea settings files ###
 .idea/
+
+### Database files ###
+deck-handler-service/jpa_deck.mv.db
+deck-handler-service/jpa_deck.trace.db
+deck-handler-service/jpa_deck.lock.db
+
+user-service/jpa_student.mv.db
+user-service/jpa_student.trace.db
+user-service/jpa_student.lock.db
