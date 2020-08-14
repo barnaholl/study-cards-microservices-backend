@@ -26,11 +26,13 @@ public class GameController {
     }
 
     @PostMapping("/response/{response}")
-    public boolean postResponse(@PathVariable("response") boolean response){
-        if(!response){
-            return deckProvider.removeFromQueue();
+    public Card postResponse(@PathVariable("response") boolean response){
+        if(response){
+            deckProvider.removeFromQueue();
+            return deckProvider.getNextCard();
         }
-        return deckProvider.addToQueue();
+        deckProvider.addToQueue();
+        return deckProvider.getNextCard();
     }
 
 }
